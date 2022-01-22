@@ -1,6 +1,6 @@
 from model import get_page_context, get_covid_info
 from settings import TEMPLATE_DIR
-from templator import render
+from leaky_cauldron.templator import render
 
 
 class IndexPage:

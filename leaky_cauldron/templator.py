@@ -22,6 +22,7 @@ def render(template_name, template_dir_path='', **kwargs):
         return template.render(**kwargs).encode('utf-8')
 
 
+# for testing
 if __name__ == "__main__":
     output = render('index.html', TEMPLATE_DIR, context=[])
     print(output)
