@@ -1,4 +1,4 @@
-from model import is_user_covid_free
+from helper import is_user_covid_free
 
 
 def secret_front(request):

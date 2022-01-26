@@ -1,4 +1,4 @@
-from model import get_page_context
+from helper import get_page_context
 from settings import TEMPLATE_DIR
 from leaky_cauldron.templator import render
 
