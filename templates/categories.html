@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Welcome to Simple WSGI{% endblock %}
+
+{% block content %}
+    {% if context.covid %}
+        <div class="alert alert-danger" role="alert">
+            {{ context.covid }}
+        </div>
+    {% endif %}
+
+    {% for item in context.categories %}
+        <div class="alert alert-light" role="alert">
+            {{ item.name }}
+        </div>
+    {% endfor %}
+
+    {% if context.info %}
+        <div class="card">
+            <div class="card-body">
+                {{ context.info }}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
