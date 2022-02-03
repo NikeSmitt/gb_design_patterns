@@ -1,13 +1,13 @@
 from pprint import pprint
-
 from leaky_cauldron import NotFoundPage
 from leaky_cauldron.helpers import parse_query_string, get_wsgi_input
 
 
 class Application:
+    
+    routes = {}
 
-    def __init__(self, routes, fronts):
-        self.routes = routes
+    def __init__(self, fronts):
         self.fronts = fronts
 
     def __call__(self, environ, start_response):
@@ -16,12 +16,18 @@ class Application:
             :param start_response: функция для ответа серверу
             :return:
             """
+        
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # подскажите как сделать по-другому
+        import controllers
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         request = {}
 
         path = environ['PATH_INFO']
         if len(path) > 1 and path[-1] == '/':
             path = path[:-1]
+        
         if path in self.routes:
             controller = self.routes[path]
         else:

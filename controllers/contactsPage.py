@@ -1,10 +1,12 @@
 from helper import get_page_context
 from leaky_cauldron.helpers import fix_url_str
+from leaky_cauldron.routes import app
 from settings import TEMPLATE_DIR
 from leaky_cauldron.templator import render
 from urllib.parse import unquote
 
 
+@app('/contacts')
 class ContactsPage:
     def __init__(self):
         self.page_name = 'contacts.html'

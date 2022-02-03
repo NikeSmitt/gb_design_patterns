@@ -1,9 +1,11 @@
 import site_main
 from helper import get_page_context
+from leaky_cauldron.routes import app
 from leaky_cauldron.templator import render
 from settings import TEMPLATE_DIR
 
 
+@app('/categories')
 class CategoriesPage:
     def __init__(self):
         self.page_name = 'categories.html'
