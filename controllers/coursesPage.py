@@ -1,11 +1,11 @@
 import site_main
 from helper import get_page_context
-from leaky_cauldron.routes import app
+from main import application
 from leaky_cauldron.templator import render
 from settings import TEMPLATE_DIR
 
 
-@app('/courses')
+@application.route('/courses')
 class CoursesPage:
     def __init__(self):
         self.page_name = 'courses.html'

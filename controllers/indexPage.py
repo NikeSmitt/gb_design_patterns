@@ -1,13 +1,11 @@
 from helper import get_page_context, get_covid_info
 from leaky_cauldron.helpers import debug
-from leaky_cauldron.routes import app
+from main import application
 from settings import TEMPLATE_DIR
 from leaky_cauldron.templator import render
 
 
-
-@app('/')
-@debug
+@application.route('/')
 class IndexPage:
     def __init__(self):
         self.page_name = 'index.html'

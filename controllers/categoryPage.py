@@ -1,11 +1,11 @@
 import site_main
 from helper import get_page_context
-from leaky_cauldron.routes import app
+from main import application
 from leaky_cauldron.templator import render
 from settings import TEMPLATE_DIR
 
 
-@app('/categories')
+@application.route('/categories')
 class CategoriesPage:
     def __init__(self):
         self.page_name = 'categories.html'
@@ -16,3 +16,9 @@ class CategoriesPage:
         context['categories'] = site_main.training_site.categories
         body = render(self.page_name, TEMPLATE_DIR, context=context)
         return '200 OK', body
+    
+
+"""
+ImportError: cannot import name 'application' from partially initialized module 'main'
+(most likely due to a circular import) (/Users/gr/Documents/learning_codes/gb_design_patterns/main.py)
+"""
