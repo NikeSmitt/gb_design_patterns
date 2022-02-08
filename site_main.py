@@ -1,5 +1,6 @@
 import helper
-from models import TrainingSite
+from helper import students
+from models import TrainingSite, UserFactory
 
 training_site = TrainingSite()
 
@@ -11,5 +12,13 @@ for category in helper.categories:
 for course in helper.courses:
     created_course = training_site.create_course(course)
     training_site.courses.append(created_course)
+
+
+course = training_site.courses[0]
+# print(course)
+
+for user in students:
+    new_user = UserFactory.create('student', **user)
+    course.add_student(new_user)
     
-    # print(created_course)
+# print(course.assign_students)

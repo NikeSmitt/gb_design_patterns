@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Users on our Site{% endblock %}
+
+{% block content %}
+
+    <form method="post" style="width: 50%; margin: 20px auto auto;">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Course name</label>
+            <input type="text" name="name" value="{{ context.course.name }}" class="form-control" id="exampleFormControlInput1"
+                   placeholder="Course name">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Type</label>
+            <input type="text" name="type" value="{{ context.course.type }}" class="form-control" id="exampleFormControlInput1"
+                   placeholder="webinar">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Teacher</label>
+            <input type="text" name="teacher_name" value="{{ context.course.teacher_name }}" class="form-control" id="exampleFormControlInput1"
+                   placeholder="Albus Dumbledore">
+        </div>
+        <input type="hidden" name="original_course_name" value="{{ context.course.name }}">
+        <button style="margin-top: 20px" type="submit" class="btn btn-primary">Save course</button>
+    </form>
+
+{% endblock %}

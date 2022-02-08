@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Users on our Site{% endblock %}
+
+{% block content %}
+    {% if context.covid %}
+        <div class="alert alert-danger" role="alert">
+            {{ context.covid }}
+        </div>
+    {% endif %}
+
+    {% if context.users %}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>About</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in context.users.students %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.about }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+
+
+    {% endif %}
+
+    <form method="post" style="width: 50%; margin: 20px auto auto;">
+        <label for="userTypeSelect"></label>
+        <select name='userType' class="form-select" aria-label="Default select example">
+            <option selected>Open this select menu</option>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+        </select>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">User name</label>
+            <input type="text" name="name" class="form-control" id="exampleFormControlInput1"
+                   placeholder="Your name">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlInput1">Email address</label>
+            <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
+                   placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">About you</label>
+            <textarea class="form-control" name="about" id="exampleFormControlTextarea1" rows="3"></textarea>
+        </div>
+        <button style="margin-top: 20px" type="submit" class="btn btn-primary">Save user</button>
+    </form>
+
+{% endblock %}

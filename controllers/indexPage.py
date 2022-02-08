@@ -5,9 +5,8 @@ from settings import TEMPLATE_DIR
 from leaky_cauldron.templator import render
 
 
-
 @app('/')
-@debug
+# @debug
 class IndexPage:
     def __init__(self):
         self.page_name = 'index.html'

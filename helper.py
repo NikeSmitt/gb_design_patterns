@@ -10,7 +10,9 @@ def get_page_context(page_name=''):
                   {'title': 'About', 'href': '/about', 'is_active': 'false'},
                   {'title': 'Contacts', 'href': '/contacts', 'is_active': 'false'},
                   {'title': 'Categories', 'href': '/categories', 'is_active': 'false'},
-                  {'title': 'Courses', 'href': '/courses', 'is_active': 'false'}, ]
+                  {'title': 'Courses', 'href': '/courses', 'is_active': 'false'},
+                  {'title': 'Users', 'href': '/users', 'is_active': 'false'},
+                  ]
     if page_name == 'index.html':
         context = {
             
@@ -28,6 +30,13 @@ def get_page_context(page_name=''):
                     'and more recently with desktop publishing software like Aldus PageMaker including versions of '
                     'Lorem Ipsum. '
         }
+    elif page_name == 'users.html':
+        context = {
+            'users': {
+                'teachers': [],
+                'students': [],
+            }
+        }
     
     context['navigation'] = navigation
     return context
@@ -43,10 +52,10 @@ def get_covid_info():
 
 
 courses = [
-    {'name': 'Python Faculty', 'type': CourseType.WEBINAR, 'teacher_name': 'Vernon'},
-    {'name': 'Java Faculty', 'type': CourseType.WEBINAR, 'teacher_name': 'Harry'},
-    {'name': 'Kotlin Faculty', 'type': CourseType.WEBINAR, 'teacher_name': 'Elly'},
-    {'name': 'iOS developer course', 'type': CourseType.WEBINAR, 'teacher_name': 'Ron'}
+    {'name': 'Python Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Vernon'},
+    {'name': 'Java Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Harry'},
+    {'name': 'Kotlin Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Elly'},
+    {'name': 'iOS developer course', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Ron'}
 ]
 
 categories = [
@@ -56,4 +65,13 @@ categories = [
     {'name': 'JavaScript'},
     {'name': 'Swift'},
     {'name': 'Kotlin'},
+]
+
+students = [
+    {'name': 'Ronald Weasley',
+     'email': 'redhead@hogwarts.wis',
+     'about': 'English pure-blood wizard, the sixth and youngest son of Arthur and Molly Weasley'},
+    {'name': 'Neville Longbottom',
+     'email': 'neville@hogwarts.wis',
+     'about': ' British pure-blood wizard, the only child and son of Frank and Alice Longbottom'},
 ]

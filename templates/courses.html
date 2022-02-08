@@ -8,11 +8,29 @@
         </div>
     {% endif %}
 
-    {% for item in context.courses %}
-        <div class="alert alert-light" role="alert">
-            {{ item }}
-        </div>
-    {% endfor %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>About</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for course in context.courses %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><a href="editcourse?course={{ course.name }}">{{ course.name }}</a></td>
+                <td>{{ course.type }}</td>
+                <td>{{ course.teacher_name }}</td>
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
 
     {% if context.info %}
         <div class="card">
