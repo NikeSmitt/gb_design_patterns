@@ -29,7 +29,7 @@ class Course:
     def remove_user(self, student: 'Student'):
         if student in self.assign_students:
             self.assign_students.remove(student)
-            
+    
     def update_course(self, **kwargs):
         self.__dict__.update(**kwargs)
         for student in self.assign_students:
@@ -104,8 +104,15 @@ class CategoryBuilder(AbsBuilder):
 
 
 class Teacher:
-    pass
-
+    
+    def __init__(self, *args, **kwargs):
+        self.name = kwargs.get('name')
+        self.email = kwargs.get('email')
+        self.about = kwargs.get('about')
+    
+    def __repr__(self):
+        return f'Teacher {self.name}'
+    
 
 class Student:
     def __init__(self, *args, **kwargs):
@@ -116,9 +123,9 @@ class Student:
     def __repr__(self):
         return f'{self.name}'
     
-    def notify(self, course: Course):
+    def notify(self, course_: Course):
         print(f'Пользователю {self.name} пришло извещение!')
-        print(f'Изменение курса {course}')
+        print(f'Изменение курса {course_}')
 
 
 class UserFactory:
@@ -171,7 +178,10 @@ class TrainingSite:
             return [student.__dict__ for student in self._students]
         else:
             return self._students
-
+    
+    @property
+    def students(self):
+        return self._students
 
 if __name__ == '__main__':
     ts = TrainingSite()

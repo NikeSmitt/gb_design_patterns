@@ -46,11 +46,13 @@ class Application:
         start_response(code, [('Content-Type', 'text/html')])
         return [body]
     
-    def redirect(self, path, code=302, request=None, response=None):
-        if path in self.routes:
-            controller = self.routes[path]
-        else:
-            controller = self.routes.get('not_found', NotFoundPage())
-        
-        code, body = controller(request)
-        return (code, [('Content-Type', 'text/html')])
+    
+#    def redirect(self, path, code=302, request=None, response=None):
+#        if path in self.routes:
+#            controller = self.routes[path]
+#        else:
+#            controller = self.routes.get('not_found', NotFoundPage())
+#
+#        code, body = controller(request)
+#        return (code, [('Content-Type', 'text/html')])
+#

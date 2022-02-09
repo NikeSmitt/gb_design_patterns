@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS students (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name VARCHAR (50) NOT NULL,
+    email VARCHAR (100) NOT NULL UNIQUE,
+    about TEXT
+
+);
+
+CREATE TABLE IF NOT EXISTS teachers (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name VARCHAR (50) NOT NULL,
+    email VARCHAR (100) NOT NULL UNIQUE,
+    about TEXT
+
+);
+
+
+CREATE TABLE IF NOT EXISTS courses (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR (50) NOT NULL,
+    type VARCHAR (50) NOT NULL,
+    teacherId INT,
+    FOREIGN KEY (teacherId) REFERENCES teachers(id)
+);
+

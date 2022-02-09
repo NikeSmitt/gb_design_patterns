@@ -52,10 +52,10 @@ def get_covid_info():
 
 
 courses = [
-    {'name': 'Python Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Vernon'},
-    {'name': 'Java Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Harry'},
-    {'name': 'Kotlin Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Elly'},
-    {'name': 'iOS developer course', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Ron'}
+    {'name': 'Python Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Albus Dumbledore'},
+    {'name': 'Java Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Severus Snape'},
+    {'name': 'Kotlin Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Albus Dumbledore'},
+    {'name': 'iOS developer course', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Minerva McGonagall'}
 ]
 
 categories = [
@@ -74,4 +74,22 @@ students = [
     {'name': 'Neville Longbottom',
      'email': 'neville@hogwarts.wis',
      'about': ' British pure-blood wizard, the only child and son of Frank and Alice Longbottom'},
+    {'name': 'Draco Malfoy',
+     'email': 'draco@hogwarts.wis',
+     'about': "Slytherin student in Harry's year. Quidditch Seeker, prefect, and member "
+                                           "of the Inquisitorial Squad."},
+]
+
+teachers = [
+    {'name': 'Minerva McGonagall',
+     'email': 'minerva@hogwarts.wis',
+     'about': 'Hogwarts Transfiguration professor, Head of Gryffindor House, Deputy Headmistress of Hogwarts, '
+              'and member of the Order of the Phoenix'},
+    {'name': 'Albus Dumbledore',
+     'email': 'theheadmaster@hogwarts.wis',
+     'about': "Transfiguration professor in Tom Riddle's time, and Hogwarts headmaster in Harry Potter's time. "
+              "Founder of the Order of the Phoenix."},
+    {'name': 'Severus Snape',
+     'email': 'severus@hogwarts.wis',
+     'about': "Potions and later Defence Against the Dark Arts professor at Hogwarts. Head of Slytherin House"},
 ]

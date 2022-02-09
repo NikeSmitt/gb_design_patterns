@@ -15,6 +15,6 @@ class CoursesPage:
         context = get_page_context(self.page_name)
         courses = site_main.training_site.courses
         context['courses'] = [{k: v for k, v in item.__dict__.items()} for item in courses]
-        print(context['courses'])
+        # print(context['courses'])
         body = render(self.page_name, TEMPLATE_DIR, context=context)
         return '200 OK', body
