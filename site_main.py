@@ -27,5 +27,7 @@ for student in students:
 
 course.add_student(training_site.students[0])
 course.add_student(training_site.students[1])
+course.subscribe(training_site.students[0])
+course.subscribe(training_site.students[1])
 
 # print(course.assign_students)

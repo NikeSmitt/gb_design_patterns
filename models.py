@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from enum import Enum
-from typing import Union, List
+from typing import Union, List, Any
 
 
 class CourseType(Enum):
@@ -9,7 +9,29 @@ class CourseType(Enum):
     VIDEOS = 'videos'
 
 
-class Course:
+class Observer(ABC):
+    
+    @abstractmethod
+    def notify(self, subject):
+        pass
+    
+
+class Observable(ABC):
+    
+    @abstractmethod
+    def subscribe(self, observer):
+        pass
+    
+    @abstractmethod
+    def remove_subscriber(self, observer):
+        pass
+    
+    @abstractmethod
+    def notify_observers(self):
+        pass
+    
+
+class Course(Observable):
     """
     Обучающий курс
     """
@@ -19,6 +41,7 @@ class Course:
         self.type = kwargs.get('type')
         self.teacher_name = kwargs.get('teacher_name')
         self.assign_students: List[Student] = []
+        self.subscribers = []
     
     def __str__(self):
         return f'{self.__getattribute__("name")}'
@@ -32,7 +55,16 @@ class Course:
     
     def update_course(self, **kwargs):
         self.__dict__.update(**kwargs)
-        for student in self.assign_students:
+        self.notify_observers()
+            
+    def subscribe(self, observer: Observer):
+        self.subscribers.append(observer)
+    
+    def remove_subscriber(self, observer: Observer):
+        self.subscribers.remove(observer)
+        
+    def notify_observers(self):
+        for student in self.subscribers:
             student.notify(self)
 
 
@@ -103,7 +135,7 @@ class CategoryBuilder(AbsBuilder):
         return self
 
 
-class Teacher:
+class Teacher(Observer):
     
     def __init__(self, *args, **kwargs):
         self.name = kwargs.get('name')
@@ -112,9 +144,9 @@ class Teacher:
     
     def __repr__(self):
         return f'Teacher {self.name}'
-    
 
-class Student:
+
+class Student(Observer):
     def __init__(self, *args, **kwargs):
         self.name = kwargs.get('name')
         self.email = kwargs.get('email')
@@ -182,6 +214,7 @@ class TrainingSite:
     @property
     def students(self):
         return self._students
+
 
 if __name__ == '__main__':
     ts = TrainingSite()
