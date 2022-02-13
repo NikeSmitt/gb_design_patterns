@@ -1,8 +1,6 @@
 import sqlite3
 from abc import ABC, abstractmethod
 
-from models import Student, Course
-
 
 class BaseMapper(ABC):
     @abstractmethod
@@ -43,7 +41,7 @@ class SQLiteBaseMapper(BaseMapper):
 
 class UserMapper(ABC):
     @abstractmethod
-    def add(self, student: Student):
+    def add(self, student):
         pass
     
     @abstractmethod
@@ -58,7 +56,7 @@ class UserMapper(ABC):
 class CourseMapper(ABC):
     
     @abstractmethod
-    def add(self, course: Course):
+    def add(self, course):
         pass
     
     @abstractmethod

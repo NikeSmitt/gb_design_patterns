@@ -1,5 +1,5 @@
 from database.db_mappers import SQLiteBaseMapper, UserMapper, CourseMapper
-from models import Student, Teacher, Course
+import models
 
 
 class SQLiteStudentMapper(SQLiteBaseMapper, UserMapper):
@@ -7,7 +7,7 @@ class SQLiteStudentMapper(SQLiteBaseMapper, UserMapper):
     def __init__(self, connection):
         super().__init__(connection)
     
-    def add(self, student: Student):
+    def add(self, student: models.Student):
         sql = f"INSERT INTO students (id, name, email, about) VALUES (?, ?, ?, ?)"
         params = (None, student.name, student.email, student.about)
         self.execute(sql, params, commit=True)
@@ -18,7 +18,7 @@ class SQLiteStudentMapper(SQLiteBaseMapper, UserMapper):
         student_data = self.execute(sql, params, fetchone=True)
         if student_data is not None:
             id_, name_, email_, about_ = student_data
-            return Student(id=id_, name=name_, email=email_, about=about_)
+            return models.Student(id=id_, name=name_, email=email_, about=about_)
     
     def get_all(self):
         sql = "SELECT name, email, about FROM students "
@@ -26,7 +26,7 @@ class SQLiteStudentMapper(SQLiteBaseMapper, UserMapper):
         students_data = self.execute(sql, params, fetchall=True)
         output = []
         for name_, email_, about_ in students_data:
-            output.append(Student(name=name_, email=email_, about=about_))
+            output.append(models.Student(name=name_, email=email_, about=about_))
         return output
 
 
@@ -35,7 +35,7 @@ class SQLiteTeacherMapper(SQLiteBaseMapper, UserMapper):
     def __init__(self, connection):
         super().__init__(connection)
     
-    def add(self, teacher: Teacher):
+    def add(self, teacher: models.Teacher):
         sql = f"INSERT INTO teachers (id, name, email, about) VALUES (?, ?, ?, ?)"
         params = (None, teacher.name, teacher.email, teacher.about)
         self.execute(sql, params, commit=True)
@@ -46,7 +46,7 @@ class SQLiteTeacherMapper(SQLiteBaseMapper, UserMapper):
         teachers_data = self.execute(sql, params, fetchall=True)
         output = []
         for id_, name_, email_, about_ in teachers_data:
-            output.append(Teacher(id=id_, name=name_, email=email_, about=about_))
+            output.append(models.Teacher(id=id_, name=name_, email=email_, about=about_))
         
         return output
     
@@ -56,7 +56,7 @@ class SQLiteTeacherMapper(SQLiteBaseMapper, UserMapper):
         teacher_data = self.execute(sql, params, fetchone=True)
         if teacher_data is not None:
             id_, name_, email_, about_ = teacher_data
-            return Teacher(id=id_, name=name_, email=email_, about=about_)
+            return models.Teacher(id=id_, name=name_, email=email_, about=about_)
 
 
 class SQLiteCourseMapper(SQLiteBaseMapper, CourseMapper):
@@ -64,7 +64,7 @@ class SQLiteCourseMapper(SQLiteBaseMapper, CourseMapper):
     def __init__(self, connection):
         super().__init__(connection)
     
-    def add(self, course: Course):
+    def add(self, course: models.Course):
         
         teacher = SQLiteTeacherMapper(self.conn).get_by_name(name=course.teacher_name)
         if teacher is not None:
@@ -88,5 +88,5 @@ class SQLiteCourseMapper(SQLiteBaseMapper, CourseMapper):
         output = []
         courses_data = self.execute(sql, params, fetchall=True)
         for id_, name_, type_, teacher_name_ in courses_data:
-            output.append(Course(id=id_, name=name_, type=type_, teacher_name=teacher_name_))
+            output.append(models.Course(id=id_, name=name_, type=type_, teacher_name=teacher_name_))
         return output

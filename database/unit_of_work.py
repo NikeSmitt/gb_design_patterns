@@ -1,24 +1,7 @@
-import sqlite3
 import threading
 from abc import ABC
-from os.path import join
-from pathlib import Path
 
-from database.db_concrete_mappers import SQLiteStudentMapper, SQLiteTeacherMapper, SQLiteCourseMapper
-
-db_path = Path(__file__).parent.parent.absolute()
-connection = sqlite3.connect(join(db_path, 'db.sqlite'))
-
-
-class MapperRegistry:
-    @staticmethod
-    def get_mapper(obj):
-        if isinstance(obj, SQLiteStudentMapper):
-            return SQLiteStudentMapper(connection)
-        elif isinstance(obj, SQLiteTeacherMapper):
-            return SQLiteTeacherMapper(connection)
-        elif isinstance(obj, SQLiteCourseMapper):
-            return SQLiteCourseMapper(connection)
+from database.mapper_registry import MapperRegistry
 
 
 class UnitOfWork:
@@ -72,8 +55,6 @@ class DomainObject(ABC):
     
     def mark_dirty(self):
         UnitOfWork.get_current().add_dirty(self)
-        
+    
     def mark_removed(self):
         UnitOfWork.get_current().add_removed(self)
-        
-    

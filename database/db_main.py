@@ -2,7 +2,7 @@ import sqlite3
 from os.path import abspath, join, isdir
 from pathlib import Path
 
-# from database.db_concrete_mappers import SQLiteStudentMapper, SQLiteCourseMapper, SQLiteTeacherMapper
+from database.db_concrete_mappers import SQLiteStudentMapper, SQLiteCourseMapper, SQLiteTeacherMapper
 from database.unit_of_work import UnitOfWork
 from helper import students, teachers, courses
 from models import Student, Teacher, Course
@@ -13,15 +13,16 @@ conn = sqlite3.connect(join(db_path, 'db.sqlite'))
 
 cursor = conn.cursor()
 
-# student_mapper = SQLiteStudentMapper(conn)
-# teacher_mapper = SQLiteTeacherMapper(conn)
-# course_mapper = SQLiteCourseMapper(conn)
+student_mapper = SQLiteStudentMapper(conn)
+teacher_mapper = SQLiteTeacherMapper(conn)
+course_mapper = SQLiteCourseMapper(conn)
 
 with open(script_path) as f:
     cursor.executescript(f.read())
 
 
 def populate_db():
+    UnitOfWork.new_current()
     for student in students:
         student = Student(name=student['name'], email=student['email'], about=student['about'])
         student.mark_new()
@@ -35,4 +36,4 @@ def populate_db():
     UnitOfWork.get_current().commit()
 
 
-populate_db()
+# populate_db()

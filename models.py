@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from enum import Enum
 from typing import Union, List, Any
 
-from database.unit_of_work import DomainObject
+import database.unit_of_work
 
 
 class CourseType(Enum):
@@ -33,7 +33,7 @@ class Observable(ABC):
         pass
 
 
-class Course(Observable, DomainObject):
+class Course(Observable, database.unit_of_work.DomainObject):
     """
     Обучающий курс
     """
@@ -138,7 +138,7 @@ class CategoryBuilder(AbsBuilder):
         return self
 
 
-class Teacher(Observer, DomainObject):
+class Teacher(Observer, database.unit_of_work.DomainObject):
     
     def __init__(self, *args, **kwargs):
         self.id = kwargs.get('id')
@@ -154,7 +154,7 @@ class Teacher(Observer, DomainObject):
         print(f'Изменение курса {course_}')
 
 
-class Student(Observer, DomainObject):
+class Student(Observer, database.unit_of_work.DomainObject):
     def __init__(self, *args, **kwargs):
         self.id = kwargs.get('id')
         self.name = kwargs.get('name')
