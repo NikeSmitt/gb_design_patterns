@@ -1,4 +1,4 @@
-from database.db_main import db_handler
+from database.db_main import student_mapper
 from helper import get_page_context
 from leaky_cauldron.helpers import fix_url_str
 from leaky_cauldron.routes import app
@@ -21,7 +21,7 @@ class UsersPage:
                 user_type = data['userType'] if 'userType' in data else 'student'
                 normalize_data = {k: fix_url_str(v) for k, v in data.items()}
                 user = UserFactory.create(user_type, **normalize_data)
-                db_handler.add_user(normalize_data['name'], normalize_data['email'], normalize_data['about'])
+                student_mapper.add_user(normalize_data['name'], normalize_data['email'], normalize_data['about'])
                 training_site.add_user(user)
         context = get_page_context(self.page_name)
         saved_students = training_site.get_students(serial=True)

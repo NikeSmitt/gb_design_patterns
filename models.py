@@ -2,6 +2,8 @@ from abc import ABC, abstractmethod
 from enum import Enum
 from typing import Union, List, Any
 
+from database.unit_of_work import DomainObject
+
 
 class CourseType(Enum):
     WEBINAR = 'webinar'
@@ -14,7 +16,7 @@ class Observer(ABC):
     @abstractmethod
     def notify(self, subject):
         pass
-    
+
 
 class Observable(ABC):
     
@@ -29,14 +31,15 @@ class Observable(ABC):
     @abstractmethod
     def notify_observers(self):
         pass
-    
 
-class Course(Observable):
+
+class Course(Observable, DomainObject):
     """
     Обучающий курс
     """
     
     def __init__(self, **kwargs):
+        self.id = kwargs.get('id')
         self.name = kwargs.get('name')
         self.type = kwargs.get('type')
         self.teacher_name = kwargs.get('teacher_name')
@@ -56,13 +59,13 @@ class Course(Observable):
     def update_course(self, **kwargs):
         self.__dict__.update(**kwargs)
         self.notify_observers()
-            
+    
     def subscribe(self, observer: Observer):
         self.subscribers.append(observer)
     
     def remove_subscriber(self, observer: Observer):
         self.subscribers.remove(observer)
-        
+    
     def notify_observers(self):
         for student in self.subscribers:
             student.notify(self)
@@ -135,19 +138,25 @@ class CategoryBuilder(AbsBuilder):
         return self
 
 
-class Teacher(Observer):
+class Teacher(Observer, DomainObject):
     
     def __init__(self, *args, **kwargs):
+        self.id = kwargs.get('id')
         self.name = kwargs.get('name')
         self.email = kwargs.get('email')
         self.about = kwargs.get('about')
     
     def __repr__(self):
         return f'Teacher {self.name}'
+    
+    def notify(self, course_: Course):
+        print(f'Преподавателю {self.name} пришло извещение!')
+        print(f'Изменение курса {course_}')
 
 
-class Student(Observer):
+class Student(Observer, DomainObject):
     def __init__(self, *args, **kwargs):
+        self.id = kwargs.get('id')
         self.name = kwargs.get('name')
         self.email = kwargs.get('email')
         self.about = kwargs.get('about')
@@ -226,3 +235,5 @@ if __name__ == '__main__':
     
     course = TrainingSite.create_course(p)
     print(course)
+
+

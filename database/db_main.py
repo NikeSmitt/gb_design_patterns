@@ -2,9 +2,10 @@ import sqlite3
 from os.path import abspath, join, isdir
 from pathlib import Path
 
-from database.db_handler import DBHandler
+# from database.db_concrete_mappers import SQLiteStudentMapper, SQLiteCourseMapper, SQLiteTeacherMapper
+from database.unit_of_work import UnitOfWork
 from helper import students, teachers, courses
-from models import CourseType
+from models import Student, Teacher, Course
 
 db_path = Path(__file__).parent.parent.absolute()
 script_path = join(Path(__file__).parent.absolute(), 'create_db.sql')
@@ -12,7 +13,9 @@ conn = sqlite3.connect(join(db_path, 'db.sqlite'))
 
 cursor = conn.cursor()
 
-db_handler = DBHandler(conn)
+# student_mapper = SQLiteStudentMapper(conn)
+# teacher_mapper = SQLiteTeacherMapper(conn)
+# course_mapper = SQLiteCourseMapper(conn)
 
 with open(script_path) as f:
     cursor.executescript(f.read())
@@ -20,11 +23,16 @@ with open(script_path) as f:
 
 def populate_db():
     for student in students:
-        db_handler.add_user(student['name'], student['email'], student['about'], 'student')
+        student = Student(name=student['name'], email=student['email'], about=student['about'])
+        student.mark_new()
     for teacher in teachers:
-        db_handler.add_user(teacher['name'], teacher['email'], teacher['about'], 'teacher')
-    
+        teacher = Teacher(name=teacher['name'], email=teacher['email'], about=teacher['about'])
+        teacher.mark_new()
     for course in courses:
-        db_handler.add_course(course['name'], course['type'], course['teacher_name'])
+        course = Course(name=course['name'], type=course['type'], teacher_name=course['teacher_name'])
+        course.mark_new()
+    
+    UnitOfWork.get_current().commit()
 
-# populate_db()
+
+populate_db()
