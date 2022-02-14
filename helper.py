@@ -1,7 +1,4 @@
-# просто эмуляция crud чтобы
 import random
-
-from models import CourseType
 
 
 def get_page_context(page_name=''):
@@ -52,10 +49,10 @@ def get_covid_info():
 
 
 courses = [
-    {'name': 'Python Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Albus Dumbledore'},
-    {'name': 'Java Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Severus Snape'},
-    {'name': 'Kotlin Faculty', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Albus Dumbledore'},
-    {'name': 'iOS developer course', 'type': CourseType.WEBINAR.value, 'teacher_name': 'Minerva McGonagall'}
+    {'name': 'Python Faculty', 'type': 'webinar', 'teacher_name': 'Albus Dumbledore'},
+    {'name': 'Java Faculty', 'type': 'webinar', 'teacher_name': 'Severus Snape'},
+    {'name': 'Kotlin Faculty', 'type': 'webinar', 'teacher_name': 'Albus Dumbledore'},
+    {'name': 'iOS developer course', 'type': 'webinar', 'teacher_name': 'Minerva McGonagall'}
 ]
 
 categories = [
@@ -77,7 +74,7 @@ students = [
     {'name': 'Draco Malfoy',
      'email': 'draco@hogwarts.wis',
      'about': "Slytherin student in Harry's year. Quidditch Seeker, prefect, and member "
-                                           "of the Inquisitorial Squad."},
+              "of the Inquisitorial Squad."},
 ]
 
 teachers = [
