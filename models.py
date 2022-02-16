@@ -3,34 +3,13 @@ from enum import Enum
 from typing import Union, List, Any
 
 import database.unit_of_work
+from reusable_patterns.observer_patterns import Observable, Observer
 
 
 class CourseType(Enum):
     WEBINAR = 'webinar'
     OFFLINE = 'offline'
     VIDEOS = 'videos'
-
-
-class Observer(ABC):
-    
-    @abstractmethod
-    def notify(self, subject):
-        pass
-
-
-class Observable(ABC):
-    
-    @abstractmethod
-    def subscribe(self, observer):
-        pass
-    
-    @abstractmethod
-    def remove_subscriber(self, observer):
-        pass
-    
-    @abstractmethod
-    def notify_observers(self):
-        pass
 
 
 class Course(Observable, database.unit_of_work.DomainObject):
